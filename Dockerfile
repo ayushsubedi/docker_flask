@@ -1,6 +1,23 @@
-# syntax = docker/dockerfile:experimental
-FROM python:3.6.1-alpine
-WORKDIR /project
-ADD . /project
-RUN --mount=type=cache,target=/root/.cache/pip pip install -r requirements.txt
-CMD ["python","run.py"]
+FROM tiangolo/uwsgi-nginx-flask:python3.6-alpine3.7
+
+ENV LISTEN_PORT=5000
+EXPOSE 5000
+
+# Indicate where uwsgi.ini lives
+ENV UWSGI_INI uwsgi.ini
+
+# Tell nginx where static files live.
+ENV STATIC_URL /docker_flask/static
+
+# Set the folder where uwsgi looks for the app
+WORKDIR /docker_flask
+
+# Copy the app contents to the image
+COPY . /docker_flask
+
+# If you have additional requirements beyond Flask (which is included in the
+# base image), generate a requirements.txt file with pip freeze and uncomment
+# the next three lines.
+COPY requirements.txt /
+RUN pip install --no-cache-dir -U pip
+RUN pip install --no-cache-dir -r /requirements.txt
