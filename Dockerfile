@@ -17,3 +17,5 @@ COPY . src/
 RUN /bin/bash -c "cd src \
     && source activate ml \
     && pip install -r requirements.txt"
+
+## docker run -p 5000:5000 -ti docker_flask /bin/bash -c "cd /src && source activate ml && python run.py"
