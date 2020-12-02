@@ -6,6 +6,13 @@ Many possibilities
 
 ![](https://github.com/ayushsubedi/docker_flask/blob/master/feature.PNG?raw=true)
 
+### Change
+
+```
+if __name__ == '__main__':
+    application.run(host= '0.0.0.0', debug=True)
+```
+
 ### Build
 ```docker build -f Dockerfile -t docker_flask .```
 
